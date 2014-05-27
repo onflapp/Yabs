@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.6), see www.w3.org" />
+
+  <title>hello world</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="generator" content="VIM" />
+	<style type="text/css">
+	html,body {
+		height:100%;
+		width;100%;
+		margin:0;
+		overflow: hidden;
+	}
+	#content {
+		height:100%;
+		width:100%;
+	}
+	</style>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<iframe frameborder="0" id="content" src="http://www.x.org">
+</iframe>
+<script>
+  var socket = io.connect('http://' + location.hostname);
+  socket.on('news', function (data) {
+		var url = data.replace("localhost", location.hostname);
+		document.getElementById("content").src = url;
+  });
+</script>
+</body>
+</html>
+

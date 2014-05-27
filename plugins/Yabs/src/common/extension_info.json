@@ -1,0 +1,32 @@
+{
+    "background_scripts": [
+        "main.js"
+    ],
+    "browser_button": {
+        "caption": "BroSync",
+        "tooltipText": "turn sync on and off"
+    },
+    "content_scripts": [
+        "content.js"
+    ],
+    "creator": "OnFlApp",
+    "description": "BroSync synchronized browser content remotely",
+    "homepage_url": "http://kangoextensions.com/",
+    "name": "BroSync",
+    "permissions": {
+        "content_scripts": [
+            "http://*/*",
+            "https://*/*"
+        ],
+        "context_menu": true,
+        "cookies": false,
+        "notifications": false,
+        "tabs": true,
+        "web_navigation": true,
+        "xhr": [
+            "http://*/*",
+            "https://*/*"
+        ]
+    },
+    "version": "0.9.0"
+}
