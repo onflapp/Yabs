@@ -3,6 +3,7 @@
 
 	self.running = false;
 	kango.ui.browserButton.setBadgeValue("off");
+	kango.ui.browserButton.setIcon("icons/button.png");
 	kango.ui.browserButton.setBadgeBackgroundColor([255, 255, 0, 0]);
 	kango.ui.browserButton.addEventListener(kango.ui.browserButton.event.COMMAND, function () {
 		self._onCommand();

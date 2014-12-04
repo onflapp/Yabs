@@ -28,9 +28,12 @@ JSReload = {
 		}
 	},
 	is_running: function() {
+		return true;
+		/*
 		var v = document.body.getAttribute("data-jsreload");
 		if (v == "on") return true;
 		else return false;
+		*/
 	},
 	connect: function() {
 		var self = this;
@@ -39,7 +42,12 @@ JSReload = {
 			var url = data.replace("localhost", location.hostname);
 
 			if (self.is_running()) {
-				self.load_page(url);
+				if (url == "reload") {
+					self.reload_page();
+				}
+				else {
+					self.load_page(url);
+				}
 			}
 		});
 	}
