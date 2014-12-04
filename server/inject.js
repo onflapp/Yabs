@@ -11,6 +11,7 @@ JSReload = {
 		var pat = new RegExp(path, "gi");
 		var done = 0;
 		var ts = new Date().getTime();
+
 		for (var i = 0; i < links.length; i++) {
 			var it = links[i];
 			var css = it.href;
@@ -22,10 +23,22 @@ JSReload = {
 				done++;
 			}
 		}
+		if (done != 0) return;
 
-		if (done == 0) {
-			this.reload_page();
+		for (var i = 0; i < links.length; i++) {
+			var it = links[i];
+			var css = it.href;
+			if (it.rel == 'stylesheet') {
+				if (css.match(/\?/) == null) css += "?" + ts;
+				else css = css.replace(/\?.*$/g, "?" + ts);
+
+				it.href = css;
+				done++;
+			}
 		}
+
+		if (done != 0) return;
+		this.reload_page();
 	},
 	is_running: function() {
 		return true;
@@ -42,7 +55,10 @@ JSReload = {
 			var url = data.replace("localhost", location.hostname);
 
 			if (self.is_running()) {
-				if (url == "reload") {
+				if (url.match("\.css$")) {
+					self.reload_css(url);
+				}
+				else if (url == "reload") {
 					self.reload_page();
 				}
 				else {
@@ -50,6 +66,9 @@ JSReload = {
 				}
 			}
 		});
+	},
+	slp: function(data) {
+		JSReload.socket.emit("news", data);
 	}
 };
 
