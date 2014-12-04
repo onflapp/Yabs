@@ -3,16 +3,17 @@
         "main.js"
     ],
     "browser_button": {
-        "caption": "BroSync",
+        "caption": "Yabs",
+        "icon": "icons/button.png", 
         "tooltipText": "turn sync on and off"
     },
     "content_scripts": [
         "content.js"
     ],
     "creator": "OnFlApp",
-    "description": "BroSync synchronized browser content remotely",
-    "homepage_url": "http://kangoextensions.com/",
-    "name": "BroSync",
+    "description": "Yabs synchronized browser content remotely",
+    "homepage_url": "https://github.com/onflapp/Yabs",
+    "name": "Yabs",
     "permissions": {
         "content_scripts": [
             "http://*/*",
