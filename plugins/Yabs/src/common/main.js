@@ -1,4 +1,4 @@
-﻿function BroSyncExtension() {
+﻿function YabsExtension() {
 	var self = this;
 
 	self.running = false;
@@ -15,7 +15,7 @@
 	});
 }
 
-BroSyncExtension.prototype = {
+YabsExtension.prototype = {
 	_onCommand: function () {
 		if (this.running) {
 			kango.ui.browserButton.setBadgeBackgroundColor([255, 255, 0, 0]);
@@ -41,4 +41,4 @@ BroSyncExtension.prototype = {
 	}
 };
 
-var extension = new BroSyncExtension();
+var extension = new YabsExtension();
