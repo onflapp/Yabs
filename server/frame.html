@@ -6,7 +6,7 @@
   <meta name="generator" content=
   "HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 15.6), see www.w3.org" />
 
-  <title>hello world</title>
+  <title>Content Frame</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
   <meta name="generator" content="VIM" />
 	<style type="text/css">
@@ -16,7 +16,7 @@
 		margin:0;
 		overflow: hidden;
 	}
-	#content {
+	#jabs-content {
 		height:100%;
 		width:100%;
 	}
@@ -24,13 +24,45 @@
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<iframe frameborder="0" id="content" src="http://www.x.org">
+<iframe frameborder="0" id="jabs-content" src="%%INIT_URL%%">
 </iframe>
 <script>
+	function getCookie(cname) {
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1);
+					if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+			}
+			return "";
+	}
+
+	function setCookie(cname, cvalue, exdays) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			var expires = "expires="+d.toUTCString();
+			document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+
+	var src = document.getElementById("jabs-content").src;
+	if (src != "") {
+		setCookie("last_url", src);
+	}
+
   var socket = io.connect('http://' + location.hostname);
   socket.on('news', function (data) {
-		var url = data.replace("localhost", location.hostname);
-		document.getElementById("content").src = url;
+		if (data == "reload") {
+			var url = getCookie("last_url");
+			if (url) {
+				document.getElementById("jabs-content").src = url;
+			}
+		}
+		else {
+			var url = data.replace("localhost", location.hostname);
+			setCookie("last_url", url);
+			document.getElementById("jabs-content").src = url;
+		}
   });
 </script>
 </body>

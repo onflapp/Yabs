@@ -15,16 +15,49 @@
 					clipboardData.setData('text', s);
 			}
 	}
+
+	function requestURL(u) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", "/load?u="+u);
+ 
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) {
+				}
+				else{
+					alert('Error: '+xhr.status); // An error occurred during the request
+				}
+			}
+		}
+
+		xhr.send(null);
+	}
 	</script>	
 </head>
 <body>
 
 <p>You should be able to <b>drag</b> the following bookmarklet up to your bookmarks or favorites bar:
-<span style="background-color:#C6CED8;padding:5px;border: 2px dashed white;"><a style="cursor: move;text-decoration: none;" id="launcher-bookmark" 
+<span style="background-color:#C6CED8;padding:5px;border: 1px dashed white;"><a style="cursor: move;text-decoration: none;" id="launcher-bookmark" 
  href="javascript:(function(){javascript:(function(){var s=document.createElement('img');s.src='http://localhost:8000/load?u='+location.href;s.onerror=function(){s.parentElement.removeChild(s);};document.body.appendChild(s);})();})();">Sync</a></span> <span style="font-size:xx-large">&#10548;</span>
+
+<p>You should be able to <b>drag</b> the following bookmarklet up to your bookmarks or favorites bar:
+<span style="background-color:#C6CED8;padding:5px;border: 1px dashed white;"><a style="cursor: move;text-decoration: none;" id="launcher-bookmark" 
+ href="javascript:(function(){javascript:(function(){document.location='http://localhost:8000/?u='+location.href;})();})();">Frame</a></span> <span style="font-size:xx-large">&#10548;</span>
+
+<p>
+<a href="/">content frame</a>
+<p>
+manual URL:<input id="url">
+
 <script>
-	var t = document.getElementById ("launcher-bookmark");
+	var t = document.getElementById("launcher-bookmark");
+
+	document.getElementById("url").addEventListener("change", function (evt) {
+		var url = evt.target.value;
+		requestURL(url);
+	});
 </script>
+
 
 </body>
 </html>
